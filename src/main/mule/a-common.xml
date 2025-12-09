@@ -88,8 +88,8 @@ output application/json
 				</ee:variables>
 			</ee:transform>
 		</on-error-propagate>
-		<on-error-propagate enableNotifications="true"
-			logException="true" doc:name="On Error Propagate"
+		<on-error-continue enableNotifications="true"
+			logException="true" doc:name="On Error Continue"
 			doc:id="27e3d12d-84d7-4230-99f4-836e09f7312e" type="APP:EMPTY_FLIGHT">
 			<ee:transform doc:name="error.description"
 				doc:id="e6332760-a61e-46ea-b1f6-daa9ff0c6b0b">
@@ -108,6 +108,6 @@ output application/json
 </ee:transform>
 			<logger level="INFO" doc:name="Logger"
 				doc:id="213195c0-8ff2-49f0-b2fc-84c9c52898f6" message="#[payload]" />
-		</on-error-propagate>
+		</on-error-continue>
 	</error-handler>
 </mule>
