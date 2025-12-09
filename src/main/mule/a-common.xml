@@ -15,7 +15,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-	errorType: error.errorType,
+	errorType: error.errorType.identifier,
 	message: error.detailedDescription
 }]]></ee:set-payload>
 				</ee:message>
@@ -31,7 +31,7 @@ output application/json
 output application/json
 ---
 {
-	errorType: error.errorType,
+	errorType: error.errorType.identifier,
 	message: error.detailedDescription
 }]]></ee:set-payload>
 				</ee:message>
