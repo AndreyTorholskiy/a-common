@@ -25,4 +25,5 @@ type: number]]></types:shape>
       </types:output-event>
     </types:processor-declaration>
   </types:enrichment>
+  <types:enrichment select="#021efccb-00dc-4b6e-80d1-3f4dd8596311"/>
 </types:mule>
