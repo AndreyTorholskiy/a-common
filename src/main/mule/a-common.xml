@@ -108,7 +108,7 @@ output application/json
 		</on-error-propagate>
 		<on-error-continue enableNotifications="true"
 			logException="true" doc:name="On Error Continue"
-			doc:id="27e3d12d-84d7-4230-99f4-836e09f7312e" type="APP:EMPTY_FLIGHT">
+			doc:id="27e3d12d-84d7-4230-99f4-836e09f7312e" type="VALIDATION:EMPTY_COLLECTION">
 			<ee:transform doc:name="error.description"
 				doc:id="e6332760-a61e-46ea-b1f6-daa9ff0c6b0b">
 				<ee:message>
