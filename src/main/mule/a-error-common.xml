@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<error-handler name="a-globalError_Handler"
+		doc:id="b60ae4c4-62d7-422f-b8b9-d07a95ebc8d7">
+		<on-error-propagate type="APIKIT:BAD_REQUEST">
+			<flow-ref doc:name="errorMessageMapping" doc:id="6d6fe87d-2600-4c5d-ad0c-f89792be6f31" name="errorMessageMapping"/>
+
+		</on-error-propagate>
+		<on-error-propagate type="APIKIT:NOT_FOUND">
+			<flow-ref doc:name="errorMessageMapping" doc:id="0f620239-eaf5-42b5-8e76-a1e179bc836e" name="errorMessageMapping" />
+
+		</on-error-propagate>
+		<on-error-propagate
+			type="APIKIT:METHOD_NOT_ALLOWED">
+			<flow-ref doc:name="errorMessageMapping" doc:id="138e2aa4-9524-4882-8852-fd62286b2384" name="errorMessageMapping" />
+
+		</on-error-propagate>
+		<on-error-propagate type="APIKIT:NOT_ACCEPTABLE">
+			<flow-ref doc:name="errorMessageMapping" doc:id="ee413c04-f735-4d84-b333-c250ab6e07ad" name="errorMessageMapping" />
+
+		</on-error-propagate>
+		<on-error-propagate
+			type="APIKIT:UNSUPPORTED_MEDIA_TYPE">
+			<flow-ref doc:name="errorMessageMapping" doc:id="eb30b40e-d241-4c25-a9d1-681049428783" name="errorMessageMapping" />
+
+		</on-error-propagate>
+		<on-error-propagate type="APIKIT:NOT_IMPLEMENTED">
+			<flow-ref doc:name="errorMessageMapping" doc:id="2e833b71-2528-400e-bcfb-b959b8a52046" name="errorMessageMapping" />
+
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true"
+			logException="true" doc:name="On Error Propagate"
+			doc:id="27e3d12d-84d7-4230-99f4-836e09f7312e" type="VALIDATION:EMPTY_COLLECTION">
+			<flow-ref doc:name="errorMessageMapping" doc:id="7b5f7b9c-ed09-4fb4-a887-80ea719702be" name="errorMessageMapping" />
+
+		</on-error-propagate>
+	</error-handler>
+	<sub-flow name="errorMessageMapping" doc:id="23560685-0829-41ab-9786-ea0d2bbfcf59" >
+		<ee:transform doc:name="Error Object" doc:id="021efccb-00dc-4b6e-80d1-3f4dd8596311" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+import modules::ErrorMapping
+
+var eType = error.errorType
+var eMessage = error.detailedDescription
+---
+ErrorMapping::createErrorMapping(eType, eMessage)]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="httpStatus" ><![CDATA[501]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
+</mule>
