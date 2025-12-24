@@ -47,6 +47,13 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			<flow-ref doc:name="errorMessageMapping" doc:id="7b5f7b9c-ed09-4fb4-a887-80ea719702be" name="errorMessageMapping" />
 
 		</on-error-propagate>
+				<on-error-propagate enableNotifications="true"
+			logException="true" doc:name="On Error Propagate"
+			doc:id="75db44f7-af91-4c8a-aaeb-21a8300a018b" type="ANY">
+			<set-variable value="404" doc:name="httpStatus" doc:id="c8b39de0-cb5c-4d2f-97a1-7f51a0f29c38" variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping" doc:id="36bf3f21-bbd6-4390-95bf-67224c7627ac" name="errorMessageMapping" />
+
+		</on-error-propagate>
 	</error-handler>
 	<sub-flow name="errorMessageMapping" doc:id="23560685-0829-41ab-9786-ea0d2bbfcf59" >
 		<ee:transform doc:name="Error Object" doc:id="021efccb-00dc-4b6e-80d1-3f4dd8596311" >
