@@ -9,56 +9,100 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<error-handler name="a-globalError_Handler"
 		doc:id="b60ae4c4-62d7-422f-b8b9-d07a95ebc8d7">
 		<on-error-propagate type="APIKIT:BAD_REQUEST">
-			<set-variable value="400" doc:name="httpStatus" doc:id="4d35eade-df2d-44ca-97d7-850c5e0428e6" variableName="httpStatus"/>
-			<flow-ref doc:name="errorMessageMapping" doc:id="6d6fe87d-2600-4c5d-ad0c-f89792be6f31" name="errorMessageMapping"/>
+			<set-variable value="400" doc:name="httpStatus"
+				doc:id="4d35eade-df2d-44ca-97d7-850c5e0428e6"
+				variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping"
+				doc:id="6d6fe87d-2600-4c5d-ad0c-f89792be6f31"
+				name="errorMessageMapping" />
 
 		</on-error-propagate>
 		<on-error-propagate type="APIKIT:NOT_FOUND">
-			<set-variable value="404" doc:name="httpStatus" doc:id="086fa0cc-a368-4887-b981-9732537efdfe" variableName="httpStatus" />
-			<flow-ref doc:name="errorMessageMapping" doc:id="0f620239-eaf5-42b5-8e76-a1e179bc836e" name="errorMessageMapping" />
+			<set-variable value="404" doc:name="httpStatus"
+				doc:id="086fa0cc-a368-4887-b981-9732537efdfe"
+				variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping"
+				doc:id="0f620239-eaf5-42b5-8e76-a1e179bc836e"
+				name="errorMessageMapping" />
 
 		</on-error-propagate>
 		<on-error-propagate
 			type="APIKIT:METHOD_NOT_ALLOWED">
-			<set-variable value="405" doc:name="httpStatus" doc:id="b27527a1-a0cf-443d-b575-b557d272b61d" variableName="httpStatus" />
-			<flow-ref doc:name="errorMessageMapping" doc:id="138e2aa4-9524-4882-8852-fd62286b2384" name="errorMessageMapping" />
+			<set-variable value="405" doc:name="httpStatus"
+				doc:id="b27527a1-a0cf-443d-b575-b557d272b61d"
+				variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping"
+				doc:id="138e2aa4-9524-4882-8852-fd62286b2384"
+				name="errorMessageMapping" />
 
 		</on-error-propagate>
 		<on-error-propagate type="APIKIT:NOT_ACCEPTABLE">
-			<set-variable value="406" doc:name="httpStatus" doc:id="883872c2-c462-47c2-860d-93333b2d5568" variableName="httpStatus" />
-			<flow-ref doc:name="errorMessageMapping" doc:id="ee413c04-f735-4d84-b333-c250ab6e07ad" name="errorMessageMapping" />
+			<set-variable value="406" doc:name="httpStatus"
+				doc:id="883872c2-c462-47c2-860d-93333b2d5568"
+				variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping"
+				doc:id="ee413c04-f735-4d84-b333-c250ab6e07ad"
+				name="errorMessageMapping" />
 
 		</on-error-propagate>
 		<on-error-propagate
 			type="APIKIT:UNSUPPORTED_MEDIA_TYPE">
-			<set-variable value="415" doc:name="httpStatus" doc:id="ccfebbc8-d3dd-4c74-b90c-9688d99539f9" variableName="httpStatus" />
-			<flow-ref doc:name="errorMessageMapping" doc:id="eb30b40e-d241-4c25-a9d1-681049428783" name="errorMessageMapping" />
+			<set-variable value="415" doc:name="httpStatus"
+				doc:id="ccfebbc8-d3dd-4c74-b90c-9688d99539f9"
+				variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping"
+				doc:id="eb30b40e-d241-4c25-a9d1-681049428783"
+				name="errorMessageMapping" />
 
 		</on-error-propagate>
 		<on-error-propagate type="APIKIT:NOT_IMPLEMENTED">
-			<set-variable value="501" doc:name="httpStatus" doc:id="3a9b08c8-c301-49ce-a73f-5b5b0e547bd3" variableName="httpStatus" />
-			<flow-ref doc:name="errorMessageMapping" doc:id="2e833b71-2528-400e-bcfb-b959b8a52046" name="errorMessageMapping" />
+			<set-variable value="501" doc:name="httpStatus"
+				doc:id="3a9b08c8-c301-49ce-a73f-5b5b0e547bd3"
+				variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping"
+				doc:id="2e833b71-2528-400e-bcfb-b959b8a52046"
+				name="errorMessageMapping" />
 
 		</on-error-propagate>
 		<on-error-propagate enableNotifications="true"
 			logException="true" doc:name="On Error Propagate"
-			doc:id="27e3d12d-84d7-4230-99f4-836e09f7312e" type="VALIDATION:EMPTY_COLLECTION">
-			<set-variable value="404" doc:name="httpStatus" doc:id="aec467a4-d73f-42d6-8a96-99036fe2c026" variableName="httpStatus" />
-			<flow-ref doc:name="errorMessageMapping" doc:id="7b5f7b9c-ed09-4fb4-a887-80ea719702be" name="errorMessageMapping" />
+			doc:id="27e3d12d-84d7-4230-99f4-836e09f7312e"
+			type="VALIDATION:EMPTY_COLLECTION">
+			<set-variable value="404" doc:name="httpStatus"
+				doc:id="aec467a4-d73f-42d6-8a96-99036fe2c026"
+				variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping"
+				doc:id="7b5f7b9c-ed09-4fb4-a887-80ea719702be"
+				name="errorMessageMapping" />
 
 		</on-error-propagate>
-				<on-error-propagate enableNotifications="true"
+		<on-error-propagate enableNotifications="true"
 			logException="true" doc:name="On Error Propagate"
-			doc:id="75db44f7-af91-4c8a-aaeb-21a8300a018b" type="ANY">
-			<set-variable value="404" doc:name="httpStatus" doc:id="c8b39de0-cb5c-4d2f-97a1-7f51a0f29c38" variableName="httpStatus" />
-			<flow-ref doc:name="errorMessageMapping" doc:id="36bf3f21-bbd6-4390-95bf-67224c7627ac" name="errorMessageMapping" />
-
+			doc:id="75db44f7-af91-4c8a-aaeb-21a8300a018b" type="DB:CONNECTIVITY">
+			<set-variable value="401" doc:name="httpStatus"
+				doc:id="c8b39de0-cb5c-4d2f-97a1-7f51a0f29c38"
+				variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping"
+				doc:id="36bf3f21-bbd6-4390-95bf-67224c7627ac"
+				name="errorMessageMapping" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true"
+			logException="true" doc:name="On Error Propagate"
+			doc:id="fa533d7f-a8d5-4197-bcbf-c378d6bb84c8" type="ANY">
+			<set-variable value="404" doc:name="httpStatus"
+				doc:id="2c1e2ec9-165f-4164-93fd-cec54c9f5e64"
+				variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping"
+				doc:id="934b51c8-ca17-4749-9f82-2122e51a170e"
+				name="errorMessageMapping" />
 		</on-error-propagate>
 	</error-handler>
-	<sub-flow name="errorMessageMapping" doc:id="23560685-0829-41ab-9786-ea0d2bbfcf59" >
-		<ee:transform doc:name="Error Object" doc:id="021efccb-00dc-4b6e-80d1-3f4dd8596311" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+	<sub-flow name="errorMessageMapping"
+		doc:id="23560685-0829-41ab-9786-ea0d2bbfcf59">
+		<ee:transform doc:name="Error Object"
+			doc:id="021efccb-00dc-4b6e-80d1-3f4dd8596311">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 import modules::ErrorMapping
 
@@ -67,7 +111,7 @@ var eMessage = error.detailedDescription
 ---
 ErrorMapping::createErrorMapping(eType, eMessage)]]></ee:set-payload>
 			</ee:message>
-			<ee:variables >
+			<ee:variables>
 			</ee:variables>
 		</ee:transform>
 	</sub-flow>
