@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="initialRequestLogging" doc:id="31794941-263b-45c6-b8aa-f6aba3d522fd" >
+		<ee:transform doc:name="initialRequest" doc:id="8b393153-a641-4b33-8520-8ae9b7408ea4">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="initialRequest" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "correlationId": correlationId,
+    "processingApi": app.name,    
+    "requestedURI": attributes.requestUri,
+    "method": attributes.method,
+	"processingStage": "IN_PROGRESS" 
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="auditLogging" doc:id="7d0d1a01-1231-42b8-bb21-ba66f32aa1e4" name="auditLogging"/>
+	</sub-flow>
+	<sub-flow name="auditLogging" doc:id="7c22ec98-6f4b-40e2-8946-31bd32419da9" >
+		<ee:transform doc:name="auditLogging" doc:id="91cdf519-37f9-4990-8d37-100ad2065102">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="auditLogging" ><![CDATA[%dw 2.0
+output application/json
+var baseRequest = vars.initialRequest
+var extraInfo = vars.logMessage default {}
+---
+baseRequest ++ extraInfo]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<logger level="INFO" doc:name="auditMessageMapping" doc:id="d211e08e-e0eb-473d-ba55-b5c32855aac8" message="#[vars.auditLogging]"/>
+	</sub-flow>
+	<sub-flow name="finalLoggerMessage" doc:id="44245475-0612-4658-abb9-44801601790f" >
+		<ee:transform doc:name="finalLogMessage" doc:id="0f06ebdf-eaa4-40c2-9ce6-4df8b6da759f" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="initialRequest" ><![CDATA[%dw 2.0
+import * from dw::util::Values
+output application/json
+
+var isError = (vars.httpStatus default 200) >= 400
+var processStatus = if (isError) "ERROR" else "COMPLETED"
+---
+vars.initialRequest update field("processingStage") with processStatus]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="auditLogging" doc:id="793cf17f-a4c3-4cdb-92d8-b7b0d7f17d9c" name="auditLogging" />
+	</sub-flow>		
+</mule>
