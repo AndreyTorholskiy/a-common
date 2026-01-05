@@ -105,7 +105,17 @@ var eMessage = error.detailedDescription
 ErrorMapping::createErrorMapping(eType, eMessage)]]></ee:set-payload>
 			</ee:message>
 			<ee:variables>
+				<ee:set-variable variableName="logMessage" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	flowName: (error.failingComponent splitBy "/processors")[0] default "Unknown Flow",
+	sourceName: (error.dslSource splitBy " ")[0][1 to -1],
+	location: (error.failingComponent splitBy "@")[1]
+}]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
+		<set-variable value="#[true]" doc:name="isError" doc:id="55cecb2c-9d28-4408-9b06-7f76a56b463b" variableName="isError"/>
+		<flow-ref doc:name="auditLogging" doc:id="d3794a32-8872-4b9b-b69a-6eca21a25ce2" name="auditLogging"/>
 	</sub-flow>
 </mule>
