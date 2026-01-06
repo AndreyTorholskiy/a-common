@@ -98,21 +98,15 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 import modules::ErrorMapping
-
-var eType = error.errorType
-var eMessage = error.detailedDescription
 ---
-ErrorMapping::createErrorMapping(eType, eMessage)]]></ee:set-payload>
+ErrorMapping::createErrorMapping(error)]]></ee:set-payload>
 			</ee:message>
 			<ee:variables>
 				<ee:set-variable variableName="logMessage" ><![CDATA[%dw 2.0
 output application/json
+import modules::LoggerMapping
 ---
-{
-	flowName: (error.failingComponent splitBy "/processors")[0] default "Unknown Flow",
-	sourceName: (error.dslSource splitBy " ")[0][1 to -1],
-	location: (error.failingComponent splitBy "@")[1]
-}]]></ee:set-variable>
+LoggerMapping::createErrorLoggerMapping(error)]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<set-variable value="#[true]" doc:name="isError" doc:id="55cecb2c-9d28-4408-9b06-7f76a56b463b" variableName="isError"/>
