@@ -109,7 +109,6 @@ import modules::LoggerMapping
 LoggerMapping::createErrorLoggerMapping(error)]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<set-variable value="#[true]" doc:name="isError" doc:id="55cecb2c-9d28-4408-9b06-7f76a56b463b" variableName="isError"/>
 		<flow-ref doc:name="auditLogging" doc:id="d3794a32-8872-4b9b-b69a-6eca21a25ce2" name="auditLogging"/>
 	</sub-flow>
 </mule>
