@@ -27,7 +27,7 @@ output application/json
 	</sub-flow>
 	<sub-flow name="auditLogging" doc:id="7c22ec98-6f4b-40e2-8946-31bd32419da9" >
 		<choice doc:name="Choice" doc:id="55448de1-ab19-4627-af90-66e61b11bbb9" >
-			<when expression="#[vars.isError == true]">
+			<when expression="#[(vars.httpStatus default 200) &gt;= 400]">
 				<ee:transform doc:name="auditLogging" doc:id="91cdf519-37f9-4990-8d37-100ad2065102">
 			<ee:message />
 			<ee:variables>
