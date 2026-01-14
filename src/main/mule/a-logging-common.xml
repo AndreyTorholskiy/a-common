@@ -12,14 +12,9 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			<ee:variables>
 				<ee:set-variable variableName="initialRequest" ><![CDATA[%dw 2.0
 output application/json
+import modules::LoggerMapping
 ---
-{
-    "correlationId": correlationId,
-    "processingApi": app.name,    
-    "requestedURI": attributes.requestUri,
-    "method": attributes.method,
-	"processingStage": "IN_PROGRESS" 
-}]]></ee:set-variable>
+LoggerMapping::createInitialRequestMapping(correlationId, attributes,app)]]></ee:set-variable>
 			
 </ee:variables>
 		</ee:transform>

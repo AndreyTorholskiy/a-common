@@ -11,3 +11,20 @@ fun createErrorLoggerMapping(error) = do {
 		configFileLocation: configFileLocation
 	}
 }
+
+fun createInitialRequestMapping(correlationId, attributes, app) = do {	
+	var apiName = app.name default "UNKNOWN_NAME"
+	var requestedURI = attributes.relativePath default "UNKNOWN_PATH" 
+	var method = attributes.method default "N/A"
+	var scheme = attributes.scheme default "N/A"
+	---
+	{
+	    correlationId: correlationId,
+	    processingApi: apiName,    
+	    requestedURI: requestedURI,
+	    method: method,
+	    scheme: scheme,
+	    timestamp: now(),
+		processingStage: "IN_PROGRESS" 
+	}
+}
