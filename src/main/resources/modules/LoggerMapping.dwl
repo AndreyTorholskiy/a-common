@@ -14,16 +14,16 @@ fun createErrorLoggerMapping(error) = do {
 
 fun createInitialRequestMapping(correlationId, attributes, app) = do {	
 	var apiName = app.name default "UNKNOWN_NAME"
-	var requestedURI = attributes.relativePath default "UNKNOWN_PATH" 
-	var method = attributes.method default "N/A"
-	var scheme = attributes.scheme default "N/A"
+	var requestedURI = attributes.relativePath 
+	var method = attributes.method
+	var scheme = attributes.scheme
 	---
 	{
 	    correlationId: correlationId,
 	    processingApi: apiName,    
-	    requestedURI: requestedURI,
-	    method: method,
-	    scheme: scheme,
+	    (requestedURI: requestedURI) if (!isEmpty(requestedURI)),
+	    (method: method) if (!isEmpty(method)),
+	    (scheme: scheme) if (!isEmpty(scheme)),
 	    timestamp: now(),
 		processingStage: "IN_PROGRESS" 
 	}
