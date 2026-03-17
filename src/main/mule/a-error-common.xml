@@ -8,7 +8,7 @@
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<error-handler name="a-globalError_Handler"
 		doc:id="b60ae4c4-62d7-422f-b8b9-d07a95ebc8d7">
-		<on-error-propagate type="APIKIT:BAD_REQUEST">
+		<on-error-propagate type="APIKIT:BAD_REQUEST, HTTP:BAD_REQUEST" enableNotifications="true" logException="true">
 			<set-variable value="400" doc:name="httpStatus"
 				doc:id="4d35eade-df2d-44ca-97d7-850c5e0428e6"
 				variableName="httpStatus" />
@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				doc:id="6d6fe87d-2600-4c5d-ad0c-f89792be6f31"
 				name="errorMessageMapping" />
 		</on-error-propagate>
-		<on-error-propagate type="APIKIT:NOT_FOUND">
+		<on-error-propagate type="APIKIT:NOT_FOUND, HTTP:NOT_FOUND" enableNotifications="true" logException="true">
 			<set-variable value="404" doc:name="httpStatus"
 				doc:id="086fa0cc-a368-4887-b981-9732537efdfe"
 				variableName="httpStatus" />
@@ -69,10 +69,22 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				doc:id="7b5f7b9c-ed09-4fb4-a887-80ea719702be"
 				name="errorMessageMapping" />
 		</on-error-continue>
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="85d0b6a3-660d-4d91-af7a-d973306d4054" type="HTTP:UNAUTHORIZED">
+			<set-variable value="401" doc:name="httpStatus" doc:id="048572a3-d8b3-4c58-9773-69016cbdb9f0" variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping" doc:id="80e61a52-4ee7-4381-a7b7-70f539cdf82e" name="errorMessageMapping" />
+		</on-error-continue>
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="d3eb851f-cbb7-4b56-9f4e-e73da30792f3" type="MONGO:PERMISSIONS_DENIED">
+			<set-variable value="403" doc:name="httpStatus" doc:id="c2c39b51-8953-4ffd-819b-cd0a20c623d0" variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping" doc:id="a3afd095-71ae-4e68-bba8-63fbed5b932b" name="errorMessageMapping" />
+		</on-error-continue>
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="27f9adba-028f-4aef-961a-316faee39f29" type="HTTP:TIMEOUT, MONGO:TIMEOUT">
+			<set-variable value="408" doc:name="httpStatus" doc:id="b50ca309-9d4f-4506-854f-6a05f2909160" variableName="httpStatus" />
+			<flow-ref doc:name="errorMessageMapping" doc:id="8ecf2049-4a0c-4afa-8e4a-9a0fd8bc690e" name="errorMessageMapping" />
+		</on-error-continue>
 		<on-error-continue enableNotifications="true"
 			logException="true" doc:name="On Error Continue"
-			doc:id="75db44f7-af91-4c8a-aaeb-21a8300a018b" type="DB:CONNECTIVITY">
-			<set-variable value="401" doc:name="httpStatus"
+			doc:id="75db44f7-af91-4c8a-aaeb-21a8300a018b" type="DB:CONNECTIVITY, HTTP:CONNECTIVITY">
+			<set-variable value="503" doc:name="httpStatus"
 				doc:id="c8b39de0-cb5c-4d2f-97a1-7f51a0f29c38"
 				variableName="httpStatus" />
 			<flow-ref doc:name="errorMessageMapping"
@@ -82,7 +94,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<on-error-propagate enableNotifications="true"
 			logException="true" doc:name="On Error Continue"
 			doc:id="fa533d7f-a8d5-4197-bcbf-c378d6bb84c8" type="ANY">
-			<set-variable value="404" doc:name="httpStatus"
+			<set-variable value="500" doc:name="httpStatus"
 				doc:id="2c1e2ec9-165f-4164-93fd-cec54c9f5e64"
 				variableName="httpStatus" />
 			<flow-ref doc:name="errorMessageMapping"
