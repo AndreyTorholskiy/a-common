@@ -134,7 +134,7 @@ output application/json
 payload]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
-				<set-variable value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	message: "Downstream API success response"&#10;}]' doc:name="logMessage - Success response" doc:id="e32107ba-fb0b-44d4-a3ef-e05db3c6c2d6" variableName="logMessage"/>
+				<set-variable value='#[{message: "Downstream API success response"}]' doc:name="logMessage - Success response" doc:id="e32107ba-fb0b-44d4-a3ef-e05db3c6c2d6" variableName="logMessage"/>
 			</when>
 			<otherwise>
 				<set-variable value="#[attributes.statusCode]" doc:name="httpStatus" doc:id="2efa3647-45b0-4f09-8a05-ef497b959341" variableName="httpStatus" />
@@ -146,7 +146,7 @@ output application/json
 payload]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
-				<set-variable value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	message: "Downstream API error response"&#10;}]' doc:name="logMessage - Error response" doc:id="ff713fda-884b-45fd-9e39-76ba881b0137" variableName="logMessage" />					
+				<set-variable value='#[{message: "Downstream API error response"}]' doc:name="logMessage - Error response" doc:id="ff713fda-884b-45fd-9e39-76ba881b0137" variableName="logMessage" />					
 			</otherwise>
 		</choice>
 	</sub-flow>
