@@ -15,7 +15,7 @@ output application/json
 import modules::LoggerMapping
 ---
 LoggerMapping::createInitialRequestMapping(correlationId, attributes,app)]]></ee:set-variable>
-			
+
 </ee:variables>
 		</ee:transform>
 		<flow-ref doc:name="auditLogging" doc:id="7d0d1a01-1231-42b8-bb21-ba66f32aa1e4" name="auditLogging"/>
@@ -52,7 +52,7 @@ baseRequest ++ extraInfo]]></ee:set-variable>
 				<logger level="INFO" doc:name="Logger Message: Success Log" doc:id="d211e08e-e0eb-473d-ba55-b5c32855aac8" message="#[vars.auditLogging]" />
 			</otherwise>
 		</choice>
-	
+
 </sub-flow>
 	<sub-flow name="finalLoggerMessage" doc:id="44245475-0612-4658-abb9-44801601790f" >
 		<ee:transform doc:name="Logger Message: Final Request" doc:id="0f06ebdf-eaa4-40c2-9ce6-4df8b6da759f">
