@@ -124,7 +124,6 @@ LoggerMapping::createErrorLoggerMapping(error)]]></ee:set-variable>
 		<flow-ref doc:name="auditLogging" doc:id="435df895-5aea-4ba2-a26e-d3dd311c3ed6" name="auditLogging"/>
 	</sub-flow>
 	<sub-flow name="responseValidating" doc:id="72ae75a5-7832-4e18-8f97-9d3743dee4c7" >
-		<set-variable value="#[attributes.statusCode]" doc:name="httpStatus" doc:id="2efa3647-45b0-4f09-8a05-ef497b959341" variableName="httpStatus" />
 		<choice doc:name="Choice" doc:id="ddb75f5e-30ce-45f9-acb6-737eaa770c78" >
 			<when expression="#[attributes.statusCode &lt; 400]">
 				<ee:transform doc:name="Prepare Successful Response" doc:id="55d7b6ec-d74f-433e-bdc1-bd5bad787ee9" >
@@ -135,8 +134,10 @@ output application/json
 payload]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	message: "Downstream API success response"&#10;}]' doc:name="logMessage - Success response" doc:id="e32107ba-fb0b-44d4-a3ef-e05db3c6c2d6" variableName="logMessage"/>
 			</when>
 			<otherwise>
+				<set-variable value="#[attributes.statusCode]" doc:name="httpStatus" doc:id="2efa3647-45b0-4f09-8a05-ef497b959341" variableName="httpStatus" />
 				<ee:transform doc:name="Prepare Error Response" doc:id="a05e9bff-3724-4f49-aba5-96dec92016bf" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
@@ -144,7 +145,8 @@ output application/json
 ---
 payload]]></ee:set-payload>
 					</ee:message>
-				</ee:transform>					
+				</ee:transform>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	message: "Downstream API error response"&#10;}]' doc:name="logMessage - Error response" doc:id="ff713fda-884b-45fd-9e39-76ba881b0137" variableName="logMessage" />					
 			</otherwise>
 		</choice>
 	</sub-flow>
